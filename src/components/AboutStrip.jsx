@@ -34,7 +34,7 @@ const AboutStrip = () => {
             </h2>
 
             <p className="lead mb-3">
-              Hi, I’m the heart behind <strong>Dhanni Boutique</strong> ✨
+              Hii, I’m the heart behind <strong>Dhanni Boutique</strong> ✨
             </p>
 
             <p className="text-muted">
