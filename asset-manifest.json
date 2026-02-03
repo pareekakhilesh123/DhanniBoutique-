@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/DhanniBoutique-/static/css/main.c2c3a71f.css",
-    "main.js": "/DhanniBoutique-/static/js/main.17bdf69e.js",
+    "main.js": "/DhanniBoutique-/static/js/main.bff1f54b.js",
     "static/js/453.20359781.chunk.js": "/DhanniBoutique-/static/js/453.20359781.chunk.js",
     "static/media/5.jpg": "/DhanniBoutique-/static/media/5.21fbf641a95571305a37.jpg",
     "static/media/1.jpg": "/DhanniBoutique-/static/media/1.74b72b4cbd8329e1cdb8.jpg",
@@ -17,11 +17,11 @@
     "static/media/owner.jpg": "/DhanniBoutique-/static/media/owner.4bbe266cf3f86fa1ec87.jpg",
     "index.html": "/DhanniBoutique-/index.html",
     "main.c2c3a71f.css.map": "/DhanniBoutique-/static/css/main.c2c3a71f.css.map",
-    "main.17bdf69e.js.map": "/DhanniBoutique-/static/js/main.17bdf69e.js.map",
+    "main.bff1f54b.js.map": "/DhanniBoutique-/static/js/main.bff1f54b.js.map",
     "453.20359781.chunk.js.map": "/DhanniBoutique-/static/js/453.20359781.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c2c3a71f.css",
-    "static/js/main.17bdf69e.js"
+    "static/js/main.bff1f54b.js"
   ]
 }
