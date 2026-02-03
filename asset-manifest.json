@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/DhanniBoutique/static/css/main.c2c3a71f.css",
-    "main.js": "/DhanniBoutique/static/js/main.ea0e6a50.js",
-    "static/js/453.20359781.chunk.js": "/DhanniBoutique/static/js/453.20359781.chunk.js",
-    "static/media/5.jpg": "/DhanniBoutique/static/media/5.21fbf641a95571305a37.jpg",
-    "static/media/1.jpg": "/DhanniBoutique/static/media/1.74b72b4cbd8329e1cdb8.jpg",
-    "static/media/lehengas.jpg": "/DhanniBoutique/static/media/lehengas.6a5f316865b511e2428c.jpg",
-    "static/media/4.jpg": "/DhanniBoutique/static/media/4.d5ea03e423c4be6ca86b.jpg",
-    "static/media/sarees.jpg": "/DhanniBoutique/static/media/sarees.2a76163644cd803c27a7.jpg",
-    "static/media/3.jpg": "/DhanniBoutique/static/media/3.7689bdeb66a903c6a2b2.jpg",
-    "static/media/2.jpg": "/DhanniBoutique/static/media/2.8b8b4e66d74649d99e50.jpg",
-    "static/media/6.jpg": "/DhanniBoutique/static/media/6.f3daf9f1464eda2242c9.jpg",
-    "static/media/suits.jpg": "/DhanniBoutique/static/media/suits.c57f4dcdf96a0c41ad38.jpg",
-    "static/media/hero.jpg": "/DhanniBoutique/static/media/hero.f49adb196af8f9e4134d.jpg",
-    "static/media/logo1.jpg": "/DhanniBoutique/static/media/logo1.9f94b62d9ef2b9a7a893.jpg",
-    "static/media/owner.jpg": "/DhanniBoutique/static/media/owner.4bbe266cf3f86fa1ec87.jpg",
-    "index.html": "/DhanniBoutique/index.html",
-    "main.c2c3a71f.css.map": "/DhanniBoutique/static/css/main.c2c3a71f.css.map",
-    "main.ea0e6a50.js.map": "/DhanniBoutique/static/js/main.ea0e6a50.js.map",
-    "453.20359781.chunk.js.map": "/DhanniBoutique/static/js/453.20359781.chunk.js.map"
+    "main.css": "/DhanniBoutique-/static/css/main.c2c3a71f.css",
+    "main.js": "/DhanniBoutique-/static/js/main.17bdf69e.js",
+    "static/js/453.20359781.chunk.js": "/DhanniBoutique-/static/js/453.20359781.chunk.js",
+    "static/media/5.jpg": "/DhanniBoutique-/static/media/5.21fbf641a95571305a37.jpg",
+    "static/media/1.jpg": "/DhanniBoutique-/static/media/1.74b72b4cbd8329e1cdb8.jpg",
+    "static/media/lehengas.jpg": "/DhanniBoutique-/static/media/lehengas.6a5f316865b511e2428c.jpg",
+    "static/media/4.jpg": "/DhanniBoutique-/static/media/4.d5ea03e423c4be6ca86b.jpg",
+    "static/media/sarees.jpg": "/DhanniBoutique-/static/media/sarees.2a76163644cd803c27a7.jpg",
+    "static/media/3.jpg": "/DhanniBoutique-/static/media/3.7689bdeb66a903c6a2b2.jpg",
+    "static/media/2.jpg": "/DhanniBoutique-/static/media/2.8b8b4e66d74649d99e50.jpg",
+    "static/media/6.jpg": "/DhanniBoutique-/static/media/6.f3daf9f1464eda2242c9.jpg",
+    "static/media/suits.jpg": "/DhanniBoutique-/static/media/suits.c57f4dcdf96a0c41ad38.jpg",
+    "static/media/hero.jpg": "/DhanniBoutique-/static/media/hero.f49adb196af8f9e4134d.jpg",
+    "static/media/logo1.jpg": "/DhanniBoutique-/static/media/logo1.9f94b62d9ef2b9a7a893.jpg",
+    "static/media/owner.jpg": "/DhanniBoutique-/static/media/owner.4bbe266cf3f86fa1ec87.jpg",
+    "index.html": "/DhanniBoutique-/index.html",
+    "main.c2c3a71f.css.map": "/DhanniBoutique-/static/css/main.c2c3a71f.css.map",
+    "main.17bdf69e.js.map": "/DhanniBoutique-/static/js/main.17bdf69e.js.map",
+    "453.20359781.chunk.js.map": "/DhanniBoutique-/static/js/453.20359781.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c2c3a71f.css",
-    "static/js/main.ea0e6a50.js"
+    "static/js/main.17bdf69e.js"
   ]
 }
