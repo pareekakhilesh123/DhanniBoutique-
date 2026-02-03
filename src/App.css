@@ -1,38 +1,167 @@
-.App {
-  text-align: center;
+
+.nav-link {
+  font-weight: 500;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.nav-link.active {
+  color: #c9a24d !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+
+footer ul li {
+  margin-bottom: 6px;
+  cursor: pointer;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+footer ul li:hover {
+  text-decoration: underline;
+}
+
+/* Hero section Start  */
+.collection-card img {
+  transition: transform 0.4s ease;
+}
+
+.collection-card:hover img {
+  transform: scale(1.05);
+}
+
+.collection-card {
+  border-radius: 14px;
+  overflow: hidden;
+}
+/* Hero section End  */
+
+
+/* Collection page start */
+.collection-box {
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.img-wrapper {
+  overflow: hidden;
+}
+
+.img-wrapper img {
+  transition: transform 0.5s ease;
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+}
+
+.collection-box:hover img {
+  transform: scale(1.08);
+}
+
+
+/* Collection page end */
+
+/* Gallery Page start */
+
+.gallery-box {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.gallery-box img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-box:hover img {
+  transform: scale(1.08);
+}
+
+.gallery-box .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
-.App-link {
-  color: #61dafb;
+.gallery-box:hover .overlay {
+  opacity: 1;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.gallery-box .overlay span {
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* Gallery Page End */
+
+
+/* Contact Page Start */
+.card {
+  border-radius: 18px;
+}
+
+.btn-success {
+  background-color: #25d366;
+  border: none;
+}
+/* Contact Page End  */
+
+/* About PAge Start */
+.rounded {
+  border-radius: 18px !important;
+}
+
+/* Abot page end */
+
+
+
+
+
+.text-gold {
+  color: var(--gold);
+}
+
+.collection-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+}
+
+.collection-card img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.collection-card:hover img {
+  transform: scale(1.08);
+}
+
+.collection-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.collection-card:hover .collection-overlay {
+  opacity: 1;
+}
+
+.collection-overlay h5 {
+  color: #fff;
+  font-size: 26px;
 }
