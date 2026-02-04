@@ -40,7 +40,7 @@ const FeaturedCollections = () => {
               viewport={{ once: true }}
             >
               <div className="collection-card text-center">
-                <img src={item.image} alt={item.title}  style={{height:"350px", borderRadius:"50px"}}/>
+                <img src={item.image} alt={item.title}  style={{height:"350px", borderTopLeftRadius:"110px", borderTopRightRadius:"110px", borderBottomLeftRadius:"10px", borderBottomRightRadius:"10px"}}/>
                 <div className="collection-overlay">
                   <h5>{item.title}</h5>
                 </div>

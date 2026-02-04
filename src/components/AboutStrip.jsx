@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import "./AboutStrip.css"
-import ownerImg from "../assets/images/owner.jpg"; // 👈 owner photo
+import ownerImg from "../assets/images/owner.jpg"; 
 
 const AboutStrip = () => {
   return (
