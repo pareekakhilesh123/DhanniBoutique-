@@ -1,0 +1,78 @@
+.footer-section {
+  background: #685822; /* luxury dark */
+  color: #f5f5f5;
+  padding: 70px 0 20px;
+}
+
+.footer-brand {
+  font-family: "Playfair Display", serif;
+  font-size: 26px;
+  margin-bottom: 12px;
+}
+
+.footer-text {
+  font-size: 14px;
+  color: #d8d8d8;
+  max-width: 320px;
+}
+
+.footer-title {
+  font-size: 15px;
+  margin-bottom: 14px;
+  letter-spacing: 0.5px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  font-size: 14px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  color: #d8d8d8;
+}
+
+.footer-links li:hover {
+  color: var(--gold);
+}
+
+.footer-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.footer-btn {
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 13px;
+  text-decoration: none;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.footer-btn.instagram {
+  background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af);
+}
+
+.footer-btn.whatsapp {
+  background: #25d366;
+}
+
+.footer-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.footer-divider {
+  border-color: rgba(255,255,255,0.2);
+  margin: 30px 0 15px;
+}
+
+.footer-copy {
+  text-align: center;
+  font-size: 13px;
+  color: #bdbdbd;
+}

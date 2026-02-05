@@ -36,7 +36,7 @@ const AboutStrip = () => {
             <p className="lead mb-3">
               Hii, I’m the heart behind <strong>Dhanni Boutique</strong> ✨
             </p>
-
+       
             <p className="text-muted">
               Fashion has always been my passion. With Dhanni Boutique, my
               goal is to create outfits that celebrate tradition while

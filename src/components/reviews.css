@@ -1,0 +1,22 @@
+.reviews-section {
+  padding: 90px 0;
+  background: #fff;
+}
+
+.review-card {
+  background: #faf7f4;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  height: 100%;
+}
+
+.review-text {
+  font-style: italic;
+  color: #444;
+}
+
+.stars {
+  color: #f4b400;
+  font-size: 14px;
+}

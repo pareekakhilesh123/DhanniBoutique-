@@ -1,0 +1,19 @@
+/* WHY CHOOSE US */
+.why-choose-section {
+  padding: 90px 0;
+  background: #faf7f4;
+}
+
+.why-card {
+  background: #fff;
+  padding: 35px 20px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  height: 100%;
+}
+
+.why-icon {
+  font-size: 34px;
+  color: var(--gold);
+}

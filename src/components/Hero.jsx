@@ -44,7 +44,7 @@ function Hero() {
             transition={{ duration: 1 }}
           >
             <div className="image-blob">
-              <img src={heroImg} alt="Dhanni Boutique" />
+              <img src={heroImg} alt="Dhanni Boutique"  />
             </div>
           </motion.div>
 

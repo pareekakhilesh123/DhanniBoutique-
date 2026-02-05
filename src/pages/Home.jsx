@@ -4,6 +4,8 @@ import AboutStrip from "../components/AboutStrip";
 import FeaturedCollections from "../components/FeaturedCollections";
 import InstagramPreview from "../components/InstagramPreview";
 import HomeCTA from "../components/HomeCTA";
+import WhyChooseUs from "../components/WhyChooseUs";
+import Reviews from "../components/Reviews";
 
 function Home() {
   return (
@@ -11,6 +13,9 @@ function Home() {
       <Hero />
       <AboutStrip />
       <FeaturedCollections />
+        <Reviews />
+      <WhyChooseUs />
+    
       <InstagramPreview />
     
     </>
