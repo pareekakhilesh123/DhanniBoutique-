@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import ContactForm from "../components/ContactForm";
 
 const Contact = () => {
   return (
@@ -83,7 +84,17 @@ const Contact = () => {
           </p>
         </motion.div>
 
+         <div className="container text-center">
+        <h2 className="fw-bold mb-4">
+          Contact <span className="text-gold">Dhanni Boutique</span>
+        </h2>
+
+        <ContactForm />
       </div>
+
+      </div>
+
+ 
     </section>
   );
 };

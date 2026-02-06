@@ -6,6 +6,7 @@ import InstagramPreview from "../components/InstagramPreview";
 import HomeCTA from "../components/HomeCTA";
 import WhyChooseUs from "../components/WhyChooseUs";
 import Reviews from "../components/Reviews";
+import ContactForm from "../components/ContactForm";
 
 function Home() {
   return (
@@ -15,8 +16,10 @@ function Home() {
       <FeaturedCollections />
         <Reviews />
       <WhyChooseUs />
-    
+      
+        
       <InstagramPreview />
+      
     
     </>
   );
