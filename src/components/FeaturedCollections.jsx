@@ -6,15 +6,46 @@ const API_URL =
 
 const FeaturedCollections = () => {
   const [collections, setCollections] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
+    const cached = localStorage.getItem("featuredCollections");
+
+    //  Use cache if available
+    if (cached) {
+      setCollections(JSON.parse(cached));
+      setLoading(false);
+      return;
+    }
+
+    // ✅ Otherwise fetch from API
     fetch(API_URL)
-      .then(res => res.json())
-      .then(data => {
-        const activeOnly = data.filter(
-          item => item.active?.toLowerCase() === "yes"
-        );
-        setCollections(activeOnly);
+      .then((res) => res.text())
+      .then((txt) => {
+        try {
+          const json = JSON.parse(txt);
+
+          const activeOnly = json.filter(
+            (item) => item.active?.toLowerCase() === "yes"
+          );
+
+          setCollections(activeOnly);
+
+          // Save to cache
+          localStorage.setItem(
+            "featuredCollections",
+            JSON.stringify(activeOnly)
+          );
+        } catch {
+          setError("Invalid JSON response");
+        } finally {
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
       });
   }, []);
 
@@ -25,38 +56,55 @@ const FeaturedCollections = () => {
           Featured <span className="text-gold">Collections</span>
         </h2>
 
-        <div className="row g-1">
-          {collections.map((item, i) => (
-            <motion.div
-              className="col-md-4"
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <div className="collection-card text-center">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  style={{
-                    height: "70%",
-                    
-                    objectFit: "cover",
-                    borderTopLeftRadius: "110px",
-                    borderTopRightRadius: "110px",
-                    borderBottomLeftRadius: "10px",
-                    borderBottomRightRadius: "10px",
-                  }}
-                />
+        {/* ✅ Loading */}
+        {loading && (
+          <div className="text-center py-5">
+            <div className="spinner-border text-dark"></div>
+          </div>
+        )}
 
-                <div className="collection-overlay">
-                  <h5>{item.title}</h5>
+        {/* ✅ Error */}
+        {error && (
+          <div className="text-center text-danger">
+            {error}
+          </div>
+        )}
+
+        {/* ✅ Data */}
+        {!loading && !error && (
+          <div className="row g-3">
+            {collections.map((item, i) => (
+              <motion.div
+                className="col-md-4"
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <div className="collection-card text-center">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    style={{
+                      height: "70%",
+                      width: "60%",
+                      objectFit: "cover",
+                      borderTopLeftRadius: "110px",
+                      borderTopRightRadius: "110px",
+                      borderBottomLeftRadius: "10px",
+                      borderBottomRightRadius: "10px",
+                    }}
+                  />
+
+                  <div className="collection-overlay">
+                    <h5>{item.title}</h5>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

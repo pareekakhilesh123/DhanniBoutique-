@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import Reviews from "../components/Reviews";
+import WhyChooseUs from "../components/WhyChooseUs";
 
 const About = () => {
   return (
@@ -93,6 +95,10 @@ const About = () => {
           </motion.div>
         </div>
       </div>
+
+      <Reviews />
+       <WhyChooseUs />
+    
     </section>
   );
 };

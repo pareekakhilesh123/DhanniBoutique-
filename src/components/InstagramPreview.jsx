@@ -7,29 +7,65 @@ const API_URL =
 
 const InstagramPreview = () => {
   const [reels, setReels] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
+    const cached = localStorage.getItem("instagramReels");
+
+    // ✅ If cached data exists
+    if (cached) {
+      setReels(JSON.parse(cached));
+      setLoading(false);
+      return;
+    }
+
+    // ✅ Otherwise fetch from API
     fetch(API_URL)
-      .then((res) => res.json())
-      .then((data) => {
-        const active = data.filter(
-          (item) => item.active?.toLowerCase() === "yes"
-        );
-        setReels(active);
+      .then((res) => res.text())
+      .then((txt) => {
+        try {
+          const json = JSON.parse(txt);
+
+          const active = json.filter(
+            (item) => item.active?.toLowerCase() === "yes"
+          );
+
+          setReels(active);
+
+          // Save in cache
+          localStorage.setItem(
+            "instagramReels",
+            JSON.stringify(active)
+          );
+        } catch {
+          setError("Invalid JSON response");
+        } finally {
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
       });
   }, []);
 
-  // 🔥 Instagram official embed script load
+  // ✅ Instagram embed script processing
   useEffect(() => {
-    if (window.instgrm) {
-      window.instgrm.Embeds.process();
-    } else {
-      const script = document.createElement("script");
-      script.src = "https://www.instagram.com/embed.js";
-      script.async = true;
-      document.body.appendChild(script);
+    if (!loading && reels.length > 0) {
+      if (window.instgrm) {
+        window.instgrm.Embeds.process();
+      } else {
+        const script = document.createElement("script");
+        script.src = "https://www.instagram.com/embed.js";
+        script.async = true;
+        script.onload = () => {
+          window.instgrm?.Embeds.process();
+        };
+        document.body.appendChild(script);
+      }
     }
-  }, [reels]);
+  }, [loading, reels]);
 
   return (
     <section className="py-5 bg-white">
@@ -50,21 +86,38 @@ const InstagramPreview = () => {
           </p>
         </motion.div>
 
-        <div className="row justify-content-center g-4">
-          {reels.map((item, i) => (
-            <div
-              className="col-12 col-md-4 d-flex justify-content-center"
-              key={i}
-            >
-              <blockquote
-                className="instagram-media"
-                data-instgrm-permalink={item.embed.replace("/embed", "")}
-                data-instgrm-version="14"
-                style={{ width: "100%" }}
-              ></blockquote>
-            </div>
-          ))}
-        </div>
+        {/* ✅ Loading Spinner */}
+        {loading && (
+          <div className="text-center py-5">
+            <div className="spinner-border text-dark"></div>
+          </div>
+        )}
+
+        {/* ✅ Error */}
+        {error && (
+          <div className="text-center text-danger">
+            {error}
+          </div>
+        )}
+
+        {/* ✅ Reels */}
+        {!loading && !error && (
+          <div className="row justify-content-center g-4">
+            {reels.map((item, i) => (
+              <div
+                className="col-12 col-md-4 d-flex justify-content-center"
+                key={i}
+              >
+                <blockquote
+                  className="instagram-media"
+                  data-instgrm-permalink={item.embed.replace("/embed", "")}
+                  data-instgrm-version="14"
+                  style={{ width: "100%" }}
+                ></blockquote>
+              </div>
+            ))}
+          </div>
+        )}
 
         <div className="text-center mt-5">
           <a

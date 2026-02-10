@@ -12,17 +12,47 @@ const API_URL =
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
+    const cached = localStorage.getItem("reviewsData");
+
+    // ✅ If cache exists
+    if (cached) {
+      setReviews(JSON.parse(cached));
+      setLoading(false);
+      return;
+    }
+
+    // ✅ Otherwise fetch from API
     fetch(API_URL)
-      .then(res => res.json())
-      .then(data => {
-        const activeReviews = data.filter(
-          r => r.active?.toLowerCase() === "yes"
-        );
-        setReviews(activeReviews);
+      .then((res) => res.text())
+      .then((txt) => {
+        try {
+          const json = JSON.parse(txt);
+
+          const activeReviews = json.filter(
+            (r) => r.active?.toLowerCase() === "yes"
+          );
+
+          setReviews(activeReviews);
+
+          // Save cache
+          localStorage.setItem(
+            "reviewsData",
+            JSON.stringify(activeReviews)
+          );
+        } catch {
+          setError("Invalid JSON response");
+        } finally {
+          setLoading(false);
+        }
       })
-      .catch(err => console.error("Fetch error:", err));
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
   }, []);
 
   return (
@@ -38,33 +68,50 @@ const Reviews = () => {
           What Our <span className="text-gold">Customers Say</span>
         </motion.h2>
 
-        <Swiper
-          modules={[Autoplay, Pagination]}
-          autoplay={{ delay: 3000 }}
-          pagination={{ clickable: true }}
-          spaceBetween={24}
-          slidesPerView={1}
-          breakpoints={{
-            768: { slidesPerView: 2 },
-            992: { slidesPerView: 3 },
-          }}
-        >
-          {reviews.map((review, i) => (
-            <SwiperSlide key={i}>
-              <div className="review-card">
-                <p className="review-text">“{review.text}”</p>
+        {/* ✅ Loading */}
+        {loading && (
+          <div className="text-center py-5">
+            <div className="spinner-border text-dark"></div>
+          </div>
+        )}
 
-                <h6 className="fw-bold mt-3 mb-1">
-                  {review.name}
-                </h6>
+        {/* ✅ Error */}
+        {error && (
+          <div className="text-center text-danger">
+            {error}
+          </div>
+        )}
 
-                <span className="stars">
-                  {"⭐".repeat(Number(review.stars || 5))}
-                </span>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {/* ✅ Swiper Only When Data Ready */}
+        {!loading && !error && reviews.length > 0 && (
+          <Swiper
+            modules={[Autoplay, Pagination]}
+            autoplay={{ delay: 3000 }}
+            pagination={{ clickable: true }}
+            spaceBetween={24}
+            slidesPerView={1}
+            breakpoints={{
+              768: { slidesPerView: 2 },
+              992: { slidesPerView: 3 },
+            }}
+          >
+            {reviews.map((review, i) => (
+              <SwiperSlide key={i}>
+                <div className="review-card">
+                  <p className="review-text">“{review.text}”</p>
+
+                  <h6 className="fw-bold mt-3 mb-1">
+                    {review.name}
+                  </h6>
+
+                  <span className="stars">
+                    {"⭐".repeat(Number(review.stars || 5))}
+                  </span>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
       </div>
     </section>
   );

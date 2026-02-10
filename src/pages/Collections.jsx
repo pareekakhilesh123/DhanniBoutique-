@@ -7,22 +7,43 @@ const API_URL =
 const Collections = () => {
   const [collections, setCollections] = useState([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const cachedData = localStorage.getItem("collectionsData");
+
+    // ✅ If cached data exists → use it (fast load)
+    if (cachedData) {
+      setCollections(JSON.parse(cachedData));
+      setLoading(false);
+      return;
+    }
+
+    // ✅ Otherwise fetch from API
     fetch(API_URL)
       .then((res) => res.text())
       .then((txt) => {
         try {
           const json = JSON.parse(txt);
+
           const active = json.filter(
             (item) => item.active?.toLowerCase() === "yes"
           );
+
           setCollections(active);
+
+          // ✅ Save to localStorage
+          localStorage.setItem("collectionsData", JSON.stringify(active));
         } catch {
-          setError(txt);
+          setError("Invalid JSON response");
+        } finally {
+          setLoading(false);
         }
       })
-      .catch((err) => setError(err.message));
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
   }, []);
 
   return (
@@ -37,45 +58,59 @@ const Collections = () => {
           Our <span style={{ color: "#c9a24d" }}>Collections</span>
         </motion.h2>
 
-        {/* ERROR DEBUG */}
-        {error && (
-          <pre style={{ color: "red", whiteSpace: "pre-wrap" }}>
-            {error}
-          </pre>
+        {/* ✅ Loading Spinner */}
+        {loading && (
+          <div className="text-center py-5">
+            <div className="spinner-border text-dark"></div>
+          </div>
         )}
 
-        <div className="row g-4">
-          {collections.map((item, index) => (
-            <motion.div
-              key={index}
-              className="col-sm-6 col-md-4"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className="card h-100 shadow-sm border-0">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="card-img-top"
-                  style={{ height: "440px", objectFit: "contain" ,}}
-                />
+        {/* ✅ Error Message */}
+        {error && (
+          <div className="text-center text-danger">
+            {error}
+          </div>
+        )}
 
-                <div className="card-body text-center">
-                  <h5>{item.title}</h5>
-                  <a
-                    href="https://instagram.com/dhanniboutique"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn btn-outline-dark btn-sm mt-2"
-                  >
-                    DM to Order ✨
-                  </a>
+        {/* ✅ Collections */}
+        {!loading && !error && (
+          <div className="row g-4">
+            {collections.map((item, index) => (
+              <motion.div
+                key={index}
+                className="col-sm-6 col-md-4"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <div className="card h-100 shadow-sm border-0">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="card-img-top"
+                    style={{
+                      height: "440px",
+                      objectFit: "contain",
+                    }}
+                  />
+
+                  <div className="card-body text-center">
+                    <h5>{item.title}</h5>
+
+                    <a
+                      href="https://instagram.com/dhanniboutique"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn btn-outline-dark btn-sm mt-2"
+                    >
+                      DM to Order ✨
+                    </a>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
 
       </div>
     </section>
