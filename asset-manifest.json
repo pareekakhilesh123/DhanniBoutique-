@@ -1,27 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.1b492ffb.css",
-    "main.js": "/static/js/main.72598967.js",
+    "main.css": "/static/css/main.9ed17743.css",
+    "main.js": "/static/js/main.c1204ad3.js",
     "static/js/453.20359781.chunk.js": "/static/js/453.20359781.chunk.js",
-    "static/media/5.jpg": "/static/media/5.21fbf641a95571305a37.jpg",
-    "static/media/1.jpg": "/static/media/1.74b72b4cbd8329e1cdb8.jpg",
-    "static/media/4.jpg": "/static/media/4.d5ea03e423c4be6ca86b.jpg",
-    "static/media/3.jpg": "/static/media/3.7689bdeb66a903c6a2b2.jpg",
-    "static/media/2.jpg": "/static/media/2.8b8b4e66d74649d99e50.jpg",
-    "static/media/6.jpg": "/static/media/6.f3daf9f1464eda2242c9.jpg",
     "static/media/logo1.jpg": "/static/media/logo1.9f94b62d9ef2b9a7a893.jpg",
-    "static/media/lehengas.jpg": "/static/media/lehengas.49942419102161ef515e.jpg",
     "static/media/owner.jpg": "/static/media/owner.4bbe266cf3f86fa1ec87.jpg",
     "static/media/hero.jpg": "/static/media/hero.c56ddf5274e3515fc8d4.jpg",
-    "static/media/sarees.jpg": "/static/media/sarees.85196901fa6f5559bb47.jpg",
-    "static/media/suits.jpg": "/static/media/suits.32d975c00709c67df83b.jpg",
     "index.html": "/index.html",
-    "main.1b492ffb.css.map": "/static/css/main.1b492ffb.css.map",
-    "main.72598967.js.map": "/static/js/main.72598967.js.map",
+    "main.9ed17743.css.map": "/static/css/main.9ed17743.css.map",
+    "main.c1204ad3.js.map": "/static/js/main.c1204ad3.js.map",
     "453.20359781.chunk.js.map": "/static/js/453.20359781.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1b492ffb.css",
-    "static/js/main.72598967.js"
+    "static/css/main.9ed17743.css",
+    "static/js/main.c1204ad3.js"
   ]
 }
