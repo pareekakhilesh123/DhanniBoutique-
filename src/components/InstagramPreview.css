@@ -12,3 +12,7 @@
   height: 100%;
   border: none;
 }
+.instagram-media {
+  margin: auto !important;
+  border-radius: 18px;
+}

@@ -1,18 +1,40 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import "./InstagramPreview.css"
+import "./InstagramPreview.css";
 
-const reels = [
-  "https://www.instagram.com/reel/DUQr-AwEq4N/embed",
-  "https://www.instagram.com/reel/DUD2VYzkuEg/embed", // yahan dusri reel ID
-  "https://www.instagram.com/reel/DT95gQuEl9g/embed", // yahan teesri reel ID  
-];
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbxtl1DoLLSwvejXbnq2E59-teXZKyfYGc8miNHIs3MXIukQglzb0lD7EV0PRLGrHuc80w/exec?sheet=instagram";
 
 const InstagramPreview = () => {
+  const [reels, setReels] = useState([]);
+
+  useEffect(() => {
+    fetch(API_URL)
+      .then((res) => res.json())
+      .then((data) => {
+        const active = data.filter(
+          (item) => item.active?.toLowerCase() === "yes"
+        );
+        setReels(active);
+      });
+  }, []);
+
+  // 🔥 Instagram official embed script load
+  useEffect(() => {
+    if (window.instgrm) {
+      window.instgrm.Embeds.process();
+    } else {
+      const script = document.createElement("script");
+      script.src = "https://www.instagram.com/embed.js";
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, [reels]);
+
   return (
     <section className="py-5 bg-white">
       <div className="container">
 
-        {/* Heading */}
         <motion.div
           className="text-center mb-5"
           initial={{ opacity: 0, y: 30 }}
@@ -28,35 +50,27 @@ const InstagramPreview = () => {
           </p>
         </motion.div>
 
-        {/* REELS GRID */}
         <div className="row justify-content-center g-4">
-          {reels.map((src, index) => (
-            <motion.div
+          {reels.map((item, i) => (
+            <div
               className="col-12 col-md-4 d-flex justify-content-center"
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              key={i}
             >
-              <div className="reel-box">
-                <iframe
-                  src={src}
-                  frameBorder="0"
-                  scrolling="no"
-                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </motion.div>
+              <blockquote
+                className="instagram-media"
+                data-instgrm-permalink={item.embed.replace("/embed", "")}
+                data-instgrm-version="14"
+                style={{ width: "100%" }}
+              ></blockquote>
+            </div>
           ))}
         </div>
 
-        {/* CTA */}
         <div className="text-center mt-5">
           <a
             href="https://www.instagram.com/dhanniboutique"
             target="_blank"
+            rel="noreferrer"
             className="btn btn-dark btn-lg"
           >
             Follow on Instagram

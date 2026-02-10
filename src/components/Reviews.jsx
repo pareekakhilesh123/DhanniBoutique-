@@ -1,22 +1,30 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import './reviews.css'
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
 
-const reviews = [
-  {
-    name: "Pooja Sharma",
-    text: "Perfect fitting and beautiful design ❤️ Loved the quality!",
-  },
-  {
-    name: "Neha Verma",
-    text: "Very elegant stitching, exactly as I wanted ✨",
-  },
-  {
-    name: "Anjali Meena",
-    text: "Best boutique experience, highly recommended ⭐⭐⭐⭐⭐",
-  },
-];
+import "swiper/css";
+import "swiper/css/pagination";
+import "./reviews.css";
+
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbz-XDNHGT7YdOlxroL6jJhDvCPs_zqOluuM8JkieDPUKAD4eXRJckZa00pE3AuYyQtXrQ/exec?sheet=reviews";
 
 const Reviews = () => {
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    fetch(API_URL)
+      .then(res => res.json())
+      .then(data => {
+        const activeReviews = data.filter(
+          r => r.active?.toLowerCase() === "yes"
+        );
+        setReviews(activeReviews);
+      })
+      .catch(err => console.error("Fetch error:", err));
+  }, []);
+
   return (
     <section className="reviews-section">
       <div className="container">
@@ -30,24 +38,33 @@ const Reviews = () => {
           What Our <span className="text-gold">Customers Say</span>
         </motion.h2>
 
-        <div className="row g-4">
+        <Swiper
+          modules={[Autoplay, Pagination]}
+          autoplay={{ delay: 3000 }}
+          pagination={{ clickable: true }}
+          spaceBetween={24}
+          slidesPerView={1}
+          breakpoints={{
+            768: { slidesPerView: 2 },
+            992: { slidesPerView: 3 },
+          }}
+        >
           {reviews.map((review, i) => (
-            <motion.div
-              className="col-md-4"
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              viewport={{ once: true }}
-            >
+            <SwiperSlide key={i}>
               <div className="review-card">
                 <p className="review-text">“{review.text}”</p>
-                <h6 className="fw-bold mt-3 mb-0">{review.name}</h6>
-                <span className="stars">⭐⭐⭐⭐⭐</span>
+
+                <h6 className="fw-bold mt-3 mb-1">
+                  {review.name}
+                </h6>
+
+                <span className="stars">
+                  {"⭐".repeat(Number(review.stars || 5))}
+                </span>
               </div>
-            </motion.div>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
       </div>
     </section>
   );

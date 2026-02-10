@@ -1,27 +1,23 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
-
-import suitsImg from "../assets/images/collections/suits.jpg";
-import sareesImg from "../assets/images/collections/sarees.jpg";
-import lehengasImg from "../assets/images/collections/lehengas.jpg";
-
-const collections = [
-  {
-    title: "Suits",
-    image: suitsImg,
-  },
-  {
-    title: "Sarees",
-    image: sareesImg,
-  },
-  {
-    title: "Lehengas",
-    image: lehengasImg,
-  },
-  
-];
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbxXP-zM1w3o4F54jW6yRrrZdheuu5ZYt4LeI6UZEAHqvBpK7L1koP4uABCiE2s2p422BA/exec";
 
 const FeaturedCollections = () => {
+  const [collections, setCollections] = useState([]);
+
+  useEffect(() => {
+    fetch(API_URL)
+      .then(res => res.json())
+      .then(data => {
+        const activeOnly = data.filter(
+          item => item.active?.toLowerCase() === "yes"
+        );
+        setCollections(activeOnly);
+      });
+  }, []);
+
   return (
     <section className="py-5 bg-light">
       <div className="container">
@@ -40,7 +36,20 @@ const FeaturedCollections = () => {
               viewport={{ once: true }}
             >
               <div className="collection-card text-center">
-                <img src={item.image} alt={item.title}  style={{height:"350px", borderTopLeftRadius:"110px", borderTopRightRadius:"110px", borderBottomLeftRadius:"10px", borderBottomRightRadius:"10px"}}/>
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  style={{
+                    height: "70%",
+                    
+                    objectFit: "cover",
+                    borderTopLeftRadius: "110px",
+                    borderTopRightRadius: "110px",
+                    borderBottomLeftRadius: "10px",
+                    borderBottomRightRadius: "10px",
+                  }}
+                />
+
                 <div className="collection-overlay">
                   <h5>{item.title}</h5>
                 </div>

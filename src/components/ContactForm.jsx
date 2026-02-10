@@ -19,7 +19,7 @@ const ContactForm = () => {
     setLoading(true);
 
     await fetch(
-      "https://script.google.com/macros/s/AKfycby2CML77bhe-_W5cK0G0_I50RIiDdMrDBf6ctoyrX3mpdowRdxv4Bd33ky3tgVTCXKung/exec",
+      "https://script.google.com/macros/s/AKfycbyjhEdzlo4pLfcqF_pnV6Tpf21llX-sYPLbJrKzbH0Gav5DJoZJNEeWI6g2WlBInuBkwg/exec",
       {
         method: "POST",
         body: JSON.stringify({
