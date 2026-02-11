@@ -6,7 +6,7 @@ const API_URL =
 
 const CACHE_KEY = "featuredCollections";
 const CACHE_TIME_KEY = "featuredCollectionsTime";
-const CACHE_DURATION = 10 * 60 * 1000;
+const CACHE_DURATION = 60 * 60 * 1000; // 1 hour
 
 const FeaturedCollections = () => {
   const [collections, setCollections] = useState([]);

@@ -2,52 +2,61 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const API_URL =
-  "YOUR_COLLECTIONS_API_URL";
+  "https://script.google.com/macros/s/AKfycbzmfqVPXB7aXhA3ppCzbx33TCcxiMRqP5A-s3JxPkrh69hacHTzYn4LTJvbHI9MKP4x/exec?sheet=collections_page";
 
 const CACHE_KEY = "collectionsData";
-const CACHE_TIME_KEY = "collectionsData_time";
-const CACHE_DURATION = 10 * 60 * 1000;
+const CACHE_TIME = 5 * 60 * 1000; // 5 minutes
 
 const Collections = () => {
   const [collections, setCollections] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const cached = localStorage.getItem(CACHE_KEY);
-    const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
+    const fetchData = async () => {
+      try {
+        const cached = localStorage.getItem(CACHE_KEY);
 
-    if (cached && cachedTime) {
-      const isExpired = Date.now() - Number(cachedTime) > CACHE_DURATION;
-      if (!isExpired) {
-        setCollections(JSON.parse(cached));
-        setLoading(false);
-        return;
-      }
-    }
+        // ✅ If cache exists
+        if (cached) {
+          const parsed = JSON.parse(cached);
 
-    fetch(API_URL)
-      .then(res => res.text())
-      .then(txt => {
-        try {
-          const json = JSON.parse(txt);
-          const active = json.filter(
-            item => item.active?.toLowerCase() === "yes"
-          );
-
-          setCollections(active);
-          localStorage.setItem(CACHE_KEY, JSON.stringify(active));
-          localStorage.setItem(CACHE_TIME_KEY, Date.now());
-        } catch {
-          setError("Invalid JSON response");
-        } finally {
-          setLoading(false);
+          // Check expiry
+          if (Date.now() - parsed.timestamp < CACHE_TIME) {
+            setCollections(parsed.data);
+            setLoading(false);
+            return;
+          }
         }
-      })
-      .catch(err => {
-        setError(err.message);
+
+        // ✅ Fetch fresh data
+        const res = await fetch(API_URL);
+        const data = await res.json();
+
+        const active = data.filter(
+          (item) => item.active?.toLowerCase() === "yes"
+        );
+
+        setCollections(active);
+
+        // Save with timestamp
+        localStorage.setItem(
+          CACHE_KEY,
+          JSON.stringify({
+            timestamp: Date.now(),
+            data: active,
+          })
+        );
+
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load collections");
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -62,31 +71,59 @@ const Collections = () => {
           Our <span style={{ color: "#c9a24d" }}>Collections</span>
         </motion.h2>
 
-        {loading && <div className="text-center py-5">
-          <div className="spinner-border"></div>
-        </div>}
+        {/* Loading */}
+        {loading && (
+          <div className="text-center py-5">
+            <div className="spinner-border text-dark"></div>
+          </div>
+        )}
 
-        {error && <div className="text-danger text-center">{error}</div>}
+        {/* Error */}
+        {error && (
+          <div className="text-center text-danger">
+            {error}
+          </div>
+        )}
 
-        {!loading && !error &&
+        {/* Data */}
+        {!loading && !error && (
           <div className="row g-4">
             {collections.map((item, index) => (
-              <div key={index} className="col-md-4">
-                <div className="card shadow-sm">
+              <motion.div
+                key={index}
+                className="col-sm-6 col-md-4"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <div className="card h-100 shadow-sm border-0">
                   <img
                     src={item.image}
                     alt={item.title}
                     className="card-img-top"
-                    style={{ height: "440px", objectFit: "contain" }}
+                    style={{
+                      height: "440px",
+                      objectFit: "contain",
+                    }}
                   />
+
                   <div className="card-body text-center">
                     <h5>{item.title}</h5>
+
+                    <a
+                      href="https://instagram.com/dhanniboutique"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn btn-outline-dark btn-sm mt-2"
+                    >
+                      DM to Order ✨
+                    </a>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        }
+        )}
 
       </div>
     </section>
