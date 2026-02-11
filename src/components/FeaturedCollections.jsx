@@ -4,49 +4,59 @@ import { useEffect, useState } from "react";
 const API_URL =
   "https://script.google.com/macros/s/AKfycbxXP-zM1w3o4F54jW6yRrrZdheuu5ZYt4LeI6UZEAHqvBpK7L1koP4uABCiE2s2p422BA/exec";
 
+const CACHE_KEY = "featuredCollections";
+const CACHE_TIME_KEY = "featuredCollectionsTime";
+const CACHE_DURATION = 10 * 60 * 1000;
+
 const FeaturedCollections = () => {
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const cached = localStorage.getItem("featuredCollections");
+    const fetchData = async () => {
+      try {
+        const res = await fetch(API_URL);
+        const text = await res.text();
+        const json = JSON.parse(text);
 
-    //  Use cache if available
-    if (cached) {
-      setCollections(JSON.parse(cached));
-      setLoading(false);
-      return;
+        const activeOnly = json.filter(
+          (item) => item.active?.toLowerCase() === "yes"
+        );
+
+        setCollections(activeOnly);
+
+        // Save fresh data
+        localStorage.setItem(CACHE_KEY, JSON.stringify(activeOnly));
+        localStorage.setItem(CACHE_TIME_KEY, Date.now());
+
+      } catch (err) {
+        setError("Failed to load data");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const cachedData = localStorage.getItem(CACHE_KEY);
+    const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
+
+    if (cachedData && cachedTime) {
+      const isExpired =
+        Date.now() - cachedTime > CACHE_DURATION;
+
+      if (!isExpired) {
+        setCollections(JSON.parse(cachedData));
+        setLoading(false);
+
+        // Background me fresh data bhi fetch kar lo
+        fetchData();
+        return;
+      }
     }
 
-    // ✅ Otherwise fetch from API
-    fetch(API_URL)
-      .then((res) => res.text())
-      .then((txt) => {
-        try {
-          const json = JSON.parse(txt);
-
-          const activeOnly = json.filter(
-            (item) => item.active?.toLowerCase() === "yes"
-          );
-
-          setCollections(activeOnly);
-
-          // Save to cache
-          localStorage.setItem(
-            "featuredCollections",
-            JSON.stringify(activeOnly)
-          );
-        } catch {
-          setError("Invalid JSON response");
-        } finally {
-          setLoading(false);
-        }
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
+    // Agar cache nahi hai ya expire ho gaya
+    fetchData();
   }, []);
 
   return (
@@ -56,21 +66,18 @@ const FeaturedCollections = () => {
           Featured <span className="text-gold">Collections</span>
         </h2>
 
-        {/* ✅ Loading */}
         {loading && (
           <div className="text-center py-5">
             <div className="spinner-border text-dark"></div>
           </div>
         )}
 
-        {/* ✅ Error */}
         {error && (
           <div className="text-center text-danger">
             {error}
           </div>
         )}
 
-        {/* ✅ Data */}
         {!loading && !error && (
           <div className="row g-3">
             {collections.map((item, i) => (
