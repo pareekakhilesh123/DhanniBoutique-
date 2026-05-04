@@ -1,28 +1,40 @@
 .reviews-section {
-  padding: 90px 0;
-  background: #faf7f4;
+  padding: 100px 5%;
+  background: linear-gradient(160deg, var(--wine) 0%, var(--ink) 60%, var(--deep) 100%);
+  position: relative; overflow: hidden;
 }
-
-.review-card {
-  background: #fff;
-  padding: 30px;
-  border-radius: 18px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
-  text-align: center;
-  height: 100%;
+.reviews-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(201,148,74,0.1) 0%, transparent 65%);
+  pointer-events: none;
 }
-
-.review-text {
-  font-style: italic;
-  color: #444;
-  font-size: 15px;
+.testi-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 24px; padding: 2rem; height: 100%;
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), border-color 0.4s, box-shadow 0.4s;
 }
-
-.stars {
-  color: #f4b400;
-  font-size: 14px;
+.testi-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(201,148,74,0.2);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
 }
-
-.swiper-pagination-bullet {
-  background: #c9a24d;
+.t-stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+.t-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem; font-style: italic;
+  color: rgba(253,246,238,0.75); line-height: 1.8; margin-bottom: 1.5rem;
 }
+.t-author { display: flex; align-items: center; gap: 0.85rem; }
+.t-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--wine), var(--rose));
+  display: grid; place-items: center;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; color: var(--cream); font-size: 1rem; flex-shrink: 0;
+}
+.t-name { font-weight: 500; font-size: 0.85rem; color: var(--cream); display: block; }
+.t-loc { font-size: 0.72rem; color: var(--muted); }
+.swiper-pagination-bullet { background: var(--gold) !important; opacity: 0.4 !important; }
+.swiper-pagination-bullet-active { opacity: 1 !important; width: 20px !important; border-radius: 4px !important; }

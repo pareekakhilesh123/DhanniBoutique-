@@ -1,19 +1,33 @@
-/* WHY CHOOSE US */
 .why-choose-section {
-  padding: 90px 0;
-  background: #faf7f4;
+  padding: 100px 5%;
+  background: var(--petal); position: relative;
 }
-
 .why-card {
+  padding: 40px 26px;
   background: #fff;
-  padding: 35px 20px;
-  border-radius: 18px;
-  text-align: center;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
-  height: 100%;
+  border: 1px solid rgba(92,30,53,0.1);
+  border-radius: 24px; text-align: center; height: 100%;
+  box-shadow: 0 4px 20px rgba(92,30,53,0.06);
+  transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
 }
-
+.why-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 56px rgba(92,30,53,0.12);
+  border-color: rgba(201,148,74,0.25);
+}
 .why-icon {
-  font-size: 34px;
-  color: var(--gold);
+  width: 64px; height: 64px; border-radius: 50%;
+  background: linear-gradient(135deg, rgba(201,148,74,0.12), rgba(201,148,74,0.06));
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 18px; font-size: 1.4rem; color: var(--wine);
+  transition: all 0.35s;
 }
+.why-card:hover .why-icon {
+  background: linear-gradient(135deg, var(--gold), var(--gold-l));
+  color: var(--ink);
+}
+.why-card h6 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem; color: var(--ink); margin-bottom: 8px; font-weight: 700;
+}
+.why-card .small { color: var(--muted); font-size: 0.82rem; line-height: 1.7; font-weight: 300; }

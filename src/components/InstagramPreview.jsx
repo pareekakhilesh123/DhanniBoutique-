@@ -6,7 +6,7 @@ const API_URL =
   "https://script.google.com/macros/s/AKfycbxtl1DoLLSwvejXbnq2E59-teXZKyfYGc8miNHIs3MXIukQglzb0lD7EV0PRLGrHuc80w/exec?sheet=instagram";
 
 const CACHE_KEY = "instagramReels";
-const CACHE_TIME = 5 * 60 * 1000; // 5 minutes
+const CACHE_TIME = 5 * 60 * 1000; //
 
 const InstagramPreview = () => {
   const [reels, setReels] = useState([]);
@@ -18,7 +18,7 @@ const InstagramPreview = () => {
       try {
         const cached = localStorage.getItem(CACHE_KEY);
 
-        // ✅ Use cache if valid
+        //Use cache if valid
         if (cached) {
           const parsed = JSON.parse(cached);
 
@@ -29,7 +29,7 @@ const InstagramPreview = () => {
           }
         }
 
-        // ✅ Fetch fresh data
+        //  Fetch fresh data
         const res = await fetch(API_URL);
         const data = await res.json(); // direct JSON
 
@@ -59,7 +59,7 @@ const InstagramPreview = () => {
     fetchData();
   }, []);
 
-  // ✅ Instagram embed script
+  // 
   useEffect(() => {
     if (!loading && reels.length > 0) {
       if (window.instgrm) {
@@ -77,7 +77,7 @@ const InstagramPreview = () => {
   }, [loading, reels]);
 
   return (
-    <section className="py-5 bg-white">
+    <section style={{ padding: "90px 0", background: "linear-gradient(160deg, var(--deep) 0%, var(--ink) 100%)", position: "relative" }}>
       <div className="container">
 
         <motion.div
@@ -87,10 +87,11 @@ const InstagramPreview = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="fw-bold">
-            Latest <span className="text-gold">Instagram Reels</span>
+          <span className="section-label" style={{ display: "block", textAlign: "center" }}>Instagram</span>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem,4.5vw,3.2rem)", color: "var(--cream)", fontWeight: 400 }}>
+            Latest <span style={{ fontStyle: "italic", background: "linear-gradient(135deg, var(--gold), var(--gold-light))", WebkitBackgroundClip: "text", backgroundClip: "text" }}>Instagram Reels</span>
           </h2>
-          <p className="text-muted mt-2">
+          <p style={{ color: "var(--muted)", marginTop: 10, fontWeight: 300, fontSize: "0.9rem" }}>
             Our latest designs & styling ideas ✨
           </p>
         </motion.div>
@@ -135,7 +136,19 @@ const InstagramPreview = () => {
             href="https://www.instagram.com/dhanniboutique"
             target="_blank"
             rel="noreferrer"
-            className="btn btn-dark btn-lg"
+            style={{
+              padding: "13px 32px",
+              background: "linear-gradient(135deg, var(--gold), var(--gold-light))",
+              color: "white", borderRadius: 4, textDecoration: "none",
+              fontFamily: "'Cinzel', serif",
+              fontWeight: 700, fontSize: "0.7rem",
+              letterSpacing: "0.15em", textTransform: "uppercase",
+              display: "inline-block",
+              boxShadow: "0 8px 24px rgba(212,175,106,0.3)",
+              transition: "all 0.3s"
+            }}
+            onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 14px 36px rgba(212,175,106,0.45)"; }}
+            onMouseLeave={e => { e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = "0 8px 24px rgba(212,175,106,0.3)"; }}
           >
             Follow on Instagram
           </a>
